@@ -16,6 +16,13 @@ const List = () => {
   const [openDate, setOpenDate] = useState(false)
   const [options, setOptions] = useState(location.state.options)
 
+
+  const handleOptionID = (name, operation) => {
+    setOptions(prev => {return{
+      ...prev, [name]: operation === "i" ? options[name] + 1 : options[name] - 1,
+    }})
+  }
+
   return (
     <div>
       <Navbar/>
@@ -56,17 +63,29 @@ const List = () => {
 
                   <div className="lsOptionItem">
                     <span className="lsOptionText">Adult</span>
-                    <input type="number" className="lsOptionInput" min={1} placeholder={options.adult}/>
+                    <div className="idOptions">
+                      <button className="increseBtn" onClick={() => handleOptionID("adult", "i")}>+</button>
+                      <input type="text" className="lsOptionInput" placeholder={options.adult}/>
+                      <button disabled={options.adult <= 1} className="decreaseBtn" onClick={() => handleOptionID("adult", "d")}>-</button>
+                    </div>
                   </div>
 
                   <div className="lsOptionItem">
                     <span className="lsOptionText">Children</span>
-                    <input type="number" className="lsOptionInput" min={0} placeholder={options.children}/>
+                    <div className="idOptions">
+                      <button className="increseBtn" onClick={() => handleOptionID("children", "i")}>+</button>
+                      <input type="text" className="lsOptionInput" placeholder={options.children}/>
+                      <button disabled={options.children < 1} className="decreaseBtn" onClick={() => handleOptionID("children", "d")}>-</button>
+                    </div>
                   </div>
 
                   <div className="lsOptionItem">
                     <span className="lsOptionText">Room</span>
-                    <input type="number" className="lsOptionInput" min={1} placeholder={options.room}/>
+                    <div className="idOptions">
+                      <button className="increseBtn" onClick={() => handleOptionID("room", "i")}>+</button>
+                      <input type="text" className="lsOptionInput" placeholder={options.room}/>
+                      <button disabled={options.room <= 1} className="decreaseBtn" onClick={() => handleOptionID("room", "d")}>-</button>
+                    </div>
                   </div>
 
                 </div>
